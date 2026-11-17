@@ -26,6 +26,9 @@ main{max-width:980px;margin:0 auto;padding:18px;display:grid;grid-template-colum
 .cm small{color:#999;margin-right:8px}
 #msg{padding:30px;text-align:center;font-weight:800}
 
+
+.per{font-size:13px;display:flex;align-items:center;gap:4px}.per input{font:inherit;padding:3px 6px;border-radius:6px;border:0}.ex{font-size:12px;color:#ffd23f;width:100%}
+@media print{.per input{border:0;background:none;color:#000;padding:0}.ex{color:#666}}
 .pdate{display:none}
 @page{size:A4;margin:12mm}
 @media print{
@@ -44,12 +47,14 @@ main{max-width:980px;margin:0 auto;padding:18px;display:grid;grid-template-colum
 </style>
 </head>
 <body>
-<header><h1>📮 キッズファクトリー アンケート結果</h1><button id="re">🔄 更新</button><button id="csv">⬇ CSV</button><button id="pr">🖨 印刷</button><span class="n">回答 <b id="tot">-</b> 件</span><div class="pdate" id="pdate"></div></header>
+<header><h1>📮 キッズファクトリー アンケート結果</h1><button id="re">🔄 更新</button><button id="csv">⬇ CSV</button><button id="pr">🖨 印刷</button><label class="per">集計期間 <input type="date" id="dFrom" value="2026-11-28"> 〜 <input type="date" id="dTo"></label><span class="ex" id="ex"></span><span class="n">回答 <b id="tot">-</b> 件</span><div class="pdate" id="pdate"></div></header>
 <div id="msg">よみこみ中…</div>
 <main id="main"></main>
 <script>
 const DB='https://toyo-game-default-rtdb.asia-southeast1.firebasedatabase.app';
-let rows=[];
+let rows=[],ALL=[];
+function ms(v,end){if(!v)return null;const t=new Date(v+'T'+(end?'23:59:59.999':'00:00:00')+'+09:00').getTime();return isNaN(t)?null:t}
+function applyF(){const f=ms(document.getElementById('dFrom').value,0),t=ms(document.getElementById('dTo').value,1);rows=ALL.filter(r=>(f==null||r.t>=f)&&(t==null||r.t<=t));const n=ALL.length-rows.length;document.getElementById('ex').textContent=n>0?'期間外の '+n+' 件（テスト回答など）は集計に入れていません':'';render()}
 const ORDER={
  fun:['キーホルダーづくり','アイシングクッキー','ガチャガチャ','あそび場','マルシェ','ゲーム','工場見学'],
  game:['TOYODASH','パイプ大作戦','TOYOカート','ドキドキ面接','東洋ファイター','とよとよ','TOYOBLAST','あそんでない'],
@@ -73,10 +78,10 @@ function render(){
 }
 async function load(){
  const m=document.getElementById('msg');m.style.display='';m.textContent='よみこみ中…';
- try{const r=await fetch(DB+'/survey.json');if(!r.ok)throw new Error(r.status);const d=await r.json()||{};rows=Object.values(d);render()}
+ try{const r=await fetch(DB+'/survey.json');if(!r.ok)throw new Error(r.status);const d=await r.json()||{};ALL=Object.values(d);applyF()}
  catch(e){m.textContent='よみこめませんでした（'+e.message+'）。Firebaseのルールで survey の読み取りが許可されているか確認してください。'}
 }
-document.getElementById('re').onclick=load;document.getElementById('pr').onclick=()=>{document.getElementById('pdate').textContent='集計日時：'+new Date().toLocaleString('ja-JP')+'　／　回答 '+rows.length+' 件';window.print()};window.addEventListener('beforeprint',()=>{document.getElementById('pdate').textContent='集計日時：'+new Date().toLocaleString('ja-JP')+'　／　回答 '+rows.length+' 件'});
+document.getElementById('re').onclick=load;document.getElementById('dFrom').onchange=document.getElementById('dTo').onchange=applyF;document.getElementById('pr').onclick=()=>{document.getElementById('pdate').textContent='集計日時：'+new Date().toLocaleString('ja-JP')+'　／　期間：'+(document.getElementById('dFrom').value||'はじめ')+' 〜 '+(document.getElementById('dTo').value||'いま')+'　／　回答 '+rows.length+' 件';window.print()};window.addEventListener('beforeprint',()=>{document.getElementById('pdate').textContent='集計日時：'+new Date().toLocaleString('ja-JP')+'　／　期間：'+(document.getElementById('dFrom').value||'はじめ')+' 〜 '+(document.getElementById('dTo').value||'いま')+'　／　回答 '+rows.length+' 件'});
 document.getElementById('csv').onclick=()=>{
  const H=['日時','満足度','たのしかったもの','好きなゲーム','また来たい','知ったきっかけ','学年','ひとこと'];
  const q=s=>'"'+String(s==null?'':s).replace(/"/g,'""')+'"';
