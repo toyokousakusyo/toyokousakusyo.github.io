@@ -57,14 +57,15 @@ function ms(v,end){if(!v)return null;const t=new Date(v+'T'+(end?'23:59:59.999':
 function applyF(){const f=ms(document.getElementById('dFrom').value,0),t=ms(document.getElementById('dTo').value,1);rows=ALL.filter(r=>(f==null||r.t>=f)&&(t==null||r.t<=t));const n=ALL.length-rows.length;document.getElementById('ex').textContent=n>0?'期間外の '+n+' 件（テスト回答など）は集計に入れていません':'';render()}
 const ORDER={
  fun:['キーホルダーづくり','アイシングクッキー','ガチャガチャ','あそび場','マルシェ','ゲーム','工場見学'],
- game:['TOYODASH','パイプ大作戦','TOYOカート','ドキドキ面接','東洋ファイター','とよとよ','TOYOBLAST','あそんでない'],
+ game:['TOYODASH','パイプ大作戦','TOYOカート','ドキドキ面接','東洋ファイター','とよっとドロップ','TOYOBLAST','あそんでない'],
  star:['5','4','3','2'], again:['ぜったい くる！','たぶん','わからない'],
  know:['チラシ','学校','Instagram','YouTube','ホームページ','知人・友人','通りがかり','その他'],
- who:['家族','ともだち','学校・習い事','ひとり'],
- next:['ゲームづくり','ものづくり','工場見学','あそび場','マルシェ','その他'],
+ who:['家族','ともだち','ひとり','学校・習い事'],
+ num:['ひとり','2人','3人','4人','5人以上'],
+ next:['ゲーム対戦','ゲームづくり','ものづくり','工場見学','あそび場','マルシェ','その他'],
  age:['未就学','小学1〜3年','小学4〜6年','中学生','高校生','おとな','中学生以上']};
 const LBL={star:{'5':'😆 さいこう','4':'😊 たのしい','3':'🙂 ふつう','2':'😐 いまいち'}};
-const TITLE={fun:'たのしかったもの（複数）',game:'いちばん好きなゲーム',star:'満足度',again:'また来たい？',know:'何で知ったか（複数）',next:'次にやってみたいこと（複数）',who:'だれと来たか（複数）',age:'年れい'};
+const TITLE={fun:'たのしかったもの（複数）',game:'いちばん好きなゲーム',star:'満足度',again:'また来たい？',know:'何で知ったか（複数）',next:'次のイベントでやってほしいこと（複数）',who:'だれと来たか（複数）',num:'何人で来たか',age:'年れい'};
 function count(k){const c={};ORDER[k].forEach(x=>c[x]=0);rows.forEach(r=>{let v=r[k];if(v==null||v==='')return;(Array.isArray(v)?v:[v]).forEach(x=>{x=String(x);c[x]=(c[x]||0)+1})});return c}
 function box(k){const c=count(k),mx=Math.max(1,...Object.values(c)),n=rows.filter(r=>r[k]&&r[k].length!==0).length;
  return '<div class="box"><h2>'+TITLE[k]+' <small style="color:#999">（'+n+'人）</small></h2>'+Object.keys(c).map(x=>'<div class="row"><span>'+((LBL[k]||{})[x]||x)+'</span><div class="bar"><i style="width:'+(c[x]/mx*100)+'%"></i></div><span>'+c[x]+'</span></div>').join('')+'</div>'}
@@ -77,8 +78,8 @@ function render(){
  const cms=rows.filter(r=>r.text).sort((a,b)=>b.t-a.t);
  document.getElementById('main').innerHTML=
   '<div class="box"><h2>満足度の平均（5点満点）</h2><div class="big">'+avg.toFixed(2)+'</div></div>'+box('star')+box('fun')+box('game')+box('again')+box('next')+
-  (oth.length?'<div class="box wide"><h2>次にやってみたいこと「その他」（'+oth.length+'件）</h2>'+oth.map(r=>'<div class="cm">'+esc(r.nextOther)+'</div>').join('')+'</div>':'')+
-  box('who')+box('know')+box('age')+
+  (oth.length?'<div class="box wide"><h2>次のイベントでやってほしいこと「その他」（'+oth.length+'件）</h2>'+oth.map(r=>'<div class="cm">'+esc(r.nextOther)+'</div>').join('')+'</div>':'')+
+  box('who')+box('num')+box('know')+box('age')+
   '<div class="box wide"><h2>ひとこと（'+cms.length+'件）</h2>'+(cms.map(r=>'<div class="cm"><small>'+new Date(r.t).toLocaleString('ja-JP')+'</small>'+String(r.text).replace(/[<>&]/g,s=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[s]))+'</div>').join('')||'なし')+'</div>';
 }
 async function load(){
@@ -88,9 +89,9 @@ async function load(){
 }
 document.getElementById('re').onclick=load;document.getElementById('dFrom').onchange=document.getElementById('dTo').onchange=applyF;document.getElementById('pr').onclick=()=>{document.getElementById('pdate').textContent='集計日時：'+new Date().toLocaleString('ja-JP')+'　／　期間：'+(document.getElementById('dFrom').value||'はじめ')+' 〜 '+(document.getElementById('dTo').value||'いま')+'　／　回答 '+rows.length+' 件';window.print()};window.addEventListener('beforeprint',()=>{document.getElementById('pdate').textContent='集計日時：'+new Date().toLocaleString('ja-JP')+'　／　期間：'+(document.getElementById('dFrom').value||'はじめ')+' 〜 '+(document.getElementById('dTo').value||'いま')+'　／　回答 '+rows.length+' 件'});
 document.getElementById('csv').onclick=()=>{
- const H=['日時','満足度','たのしかったもの','好きなゲーム','また来たい','次にやりたいこと','次にやりたいこと(その他)','だれと来たか','知ったきっかけ','学年','ひとこと'];
+ const H=['日時','満足度','たのしかったもの','好きなゲーム','また来たい','次にやりたいこと','次にやりたいこと(その他)','だれと来たか','何人で来たか','知ったきっかけ','学年','ひとこと'];
  const q=s=>'"'+String(s==null?'':s).replace(/"/g,'""')+'"';
- const L=[H.map(q).join(',')].concat(rows.sort((a,b)=>a.t-b.t).map(r=>[new Date(r.t).toLocaleString('ja-JP'),r.star,(r.fun||[]).join(' / '),r.game,r.again,(r.next||[]).join(' / '),r.nextOther,(r.who||[]).join(' / '),(r.know||[]).join(' / '),[].concat(r.age||[]).join(' / '),r.text].map(q).join(',')));
+ const L=[H.map(q).join(',')].concat(rows.sort((a,b)=>a.t-b.t).map(r=>[new Date(r.t).toLocaleString('ja-JP'),r.star,(r.fun||[]).join(' / '),r.game,r.again,(r.next||[]).join(' / '),r.nextOther,(r.who||[]).join(' / '),r.num,(r.know||[]).join(' / '),[].concat(r.age||[]).join(' / '),r.text].map(q).join(',')));
  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+L.join('\r\n')],{type:'text/csv'}));a.download='kids_factory_enquete.csv';a.click();
 };
 load();
