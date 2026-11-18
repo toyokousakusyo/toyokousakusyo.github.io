@@ -160,7 +160,41 @@ section{padding:72px 18px}
 @keyframes sw{50%{transform:translateX(10px)}}
 
 
+
+/* アンケート：11/28 かいきんボタン */
+.enqgate{text-align:center;margin:10px 0 30px}
+.enqbtn.hb{font-size:19px;padding:10px 30px 13px;text-decoration:none;vertical-align:top}.enqbtn.hb small{font-size:12px;margin-top:2px}
+@media(max-width:600px){.enqbtn.hb{font-size:16px;padding:9px 22px 12px}}
+body:not(.enq-show) #enqForm,body:not(.enq-show) .enq-post{display:none}
+body.enq-show .enq-pre{display:none}
+.enqhint{display:inline-block;margin-top:8px;font-size:clamp(20px,3.4vw,28px);color:#e0600a;animation:enqfloat 2s ease-in-out infinite}
+.enqgift{max-width:620px;margin:-6px auto 26px;text-align:center;background:linear-gradient(90deg,#fff3a8,#ffd6a0);border:3px solid #ffb347;border-radius:18px;padding:12px 16px;font-weight:800;font-size:17px}
+body.enq-show .enqgate{display:none}
+.enqbtn{position:relative;display:inline-flex;flex-direction:column;align-items:center;gap:2px;border:0;cursor:pointer;font-family:inherit;font-weight:800;border-radius:99px;padding:16px 40px 18px;font-size:22px;line-height:1.3}
+.enqbtn small{font-size:14px;font-weight:800;border-radius:99px;padding:1px 14px;margin-top:4px}
+.enqbtn.ice{color:#13506f;border:3px solid #fff;text-shadow:0 1px 0 #fff;
+ background:linear-gradient(135deg,#f2fdff 0%,#b8ecff 30%,#e6f9ff 48%,#8fd8f7 70%,#d4f4ff 100%);
+ box-shadow:0 6px 0 #5aa9cf,0 0 0 4px rgba(160,225,255,.5),0 0 28px rgba(150,220,255,.9),inset 0 0 16px rgba(255,255,255,.9);animation:enqfloat 3s ease-in-out infinite}
+.enqbtn.ice::before{content:"";position:absolute;inset:0;border-radius:99px;pointer-events:none;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.95) 45%,transparent 60%);background-size:250% 100%;animation:enqshine 2.4s linear infinite}
+.enqbtn.ice small{background:#fff;color:#e0600a}
+.enqbtn.ice .eicicle{position:absolute;left:18%;right:18%;bottom:-16px;height:18px;pointer-events:none;background:linear-gradient(#d4f4ff,#8fd8f7);
+ clip-path:polygon(0 0,100% 0,96% 40%,92% 0,86% 85%,80% 0,72% 55%,66% 0,58% 100%,52% 0,44% 60%,38% 0,30% 90%,24% 0,16% 50%,10% 0,5% 75%)}
+.enqbtn.open{background:var(--orange);color:#fff;box-shadow:0 6px 0 var(--orange-d);animation:enqglow 1.6s ease-in-out infinite}
+.enqbtn.open small{background:#fff;color:#e0600a}
+.enqbtn.open .eicicle{display:none}
+.enqbtn.shake{animation:enqshake .45s}
+@keyframes enqshine{0%{background-position:150% 0}100%{background-position:-100% 0}}
+@keyframes enqfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes enqshake{20%{transform:translateX(-6px) rotate(-2deg)}40%{transform:translateX(6px) rotate(2deg)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes enqglow{0%,100%{box-shadow:0 6px 0 var(--orange-d),0 0 0 0 rgba(255,122,26,.7)}50%{box-shadow:0 6px 0 var(--orange-d),0 0 0 16px rgba(255,122,26,0)}}
+.enqflake{position:fixed;pointer-events:none;z-index:95;color:#bfeeff;text-shadow:0 0 6px #fff;animation:enqflk 1.4s ease-out forwards}
+@keyframes enqflk{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+.enqpop{position:fixed;z-index:96;background:#fff;color:#13506f;border:3px solid #8fd8f7;border-radius:14px;padding:6px 14px;font-weight:800;pointer-events:none;transform:translateX(-50%);animation:enqup 1.6s ease-out forwards}
+@keyframes enqup{0%{opacity:0}15%{opacity:1}100%{opacity:0;margin-top:-40px}}
+.enqshard{position:fixed;z-index:97;pointer-events:none;background:linear-gradient(135deg,#f2fdff,#8fd8f7);border:1px solid #fff;box-shadow:0 0 10px rgba(150,220,255,.9)}
+@media(max-width:600px){.enqbtn{font-size:18px;padding:14px 26px 16px}}
 /* enquete */
+section[id]{scroll-margin-top:64px}
 .enq ruby,.enqdone ruby{ruby-position:over}.enq .opts button{line-height:1.9}.enq .opts.faces button span{line-height:1.8}
 #enquete{background:#fff3d6}
 .enq{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
@@ -175,6 +209,7 @@ section{padding:72px 18px}
 .opts button.on{background:var(--orange);border-color:var(--orange-d);color:#fff}
 .opts.faces button{display:flex;flex-direction:column;align-items:center;font-size:34px;border-radius:18px;padding:8px 14px;line-height:1.1}
 .opts.faces button span{font-size:13px}
+.enq input.oth{display:block;width:100%;margin-top:10px;border:3px solid #d8cdb8;border-radius:16px;padding:10px 12px;font:inherit;font-size:16px;color:#173044}.enq input.oth[hidden]{display:none}
 .enq textarea{width:100%;min-height:90px;border:3px solid #d8cdb8;border-radius:16px;padding:10px 12px;font:inherit;font-size:16px;resize:vertical}
 .enqnote{font-size:13px;color:#777;margin:0;text-align:center}
 .enqmsg{text-align:center;font-weight:800;color:#c0392b;min-height:1.5em}
@@ -358,7 +393,7 @@ footer{background:#1b1d21;color:#aaa;text-align:center;font-size:12px;padding:22
     <span class="badge">せっつキッズファクトリー</span>
     <h1><span style="white-space:nowrap">パイプのこうじょうを</span><br><span style="white-space:nowrap">たんけんしよう！</span></h1>
     <p>大阪府<ruby>摂津市<rt>せっつし</rt></ruby>の「<ruby>東洋工作所<rt>とうようこうさくしょ</rt></ruby>」は、パイプのプロがあつまる<ruby>工場<rt>こうじょう</rt></ruby>。<br>8つのスポットをめぐって、クイズにこたえて、スタンプをあつめよう！</p>
-    <div class="herobtns"><a class="btn" href="#map">▶ 見学をはじめる</a><a class="btn sub" href="#movie">🎬 まずは動画を見る</a><a class="btn game" id="gameBtn" href="#games">🎮 ゲームであそぶ</a></div>
+    <div class="herobtns"><a class="btn" href="#map">▶ 見学をはじめる</a><a class="btn sub" href="#movie">🎬 まずは動画を見る</a><a class="btn game" id="gameBtn" href="#games">🎮 ゲームであそぶ</a><a class="enqbtn hb" id="enqHero" href="#enquete"><span class="eicicle"></span><span class="ebm">🧊 アンケートは こおりの<ruby>中<rt>なか</rt></ruby>…</span><small class="ebs">11/28（土）かいきん！</small></a></div>
   </div>
   <div class="scroll">SCROLL ▼</div>
 </div>
@@ -474,7 +509,8 @@ footer{background:#1b1d21;color:#aaa;text-align:center;font-size:12px;padding:22
 <section id="enquete">
   <div class="wrap">
     <div class="h2"><span class="en">QUESTIONNAIRE</span><h2>アンケートに<ruby>答<rt>こた</rt></ruby>えてね！</h2></div>
-    <p class="lead">キッズファクトリーに<ruby>来<rt>き</rt></ruby>てくれた<ruby>人<rt>ひと</rt></ruby>におねがい！<ruby>楽<rt>たの</rt></ruby>しかった？<br>1<ruby>分<rt>ぷん</rt></ruby>で<ruby>終<rt>お</rt></ruby>わるよ！</p>
+    <p class="lead enq-pre">アンケートに <ruby>答<rt>こた</rt></ruby>えると…？<br><b class="enqhint">🎁 なにか いいことが おきるかも！</b><br><small>11/28（土）キッズファクトリーの<ruby>日<rt>ひ</rt></ruby>に かいきん！</small></p><div class="enq-post"><p class="lead">キッズファクトリーに<ruby>来<rt>き</rt></ruby>てくれた<ruby>人<rt>ひと</rt></ruby>におねがい！<ruby>楽<rt>たの</rt></ruby>しかった？<br>1<ruby>分<rt>ぷん</rt></ruby>で<ruby>終<rt>お</rt></ruby>わるよ！</p><p class="enqgift">🎁 <ruby>答<rt>こた</rt></ruby>えてくれた<ruby>人<rt>ひと</rt></ruby>だけ！<br>じぶんで<ruby>描<rt>か</rt></ruby>いたキャラで ゲームが あそべるように なるよ！</p></div>
+    <div class="enqgate" id="enqGate"><button type="button" class="enqbtn" id="enqBtn"><span class="eicicle"></span><span class="ebm">🧊 アンケートは こおりの<ruby>中<rt>なか</rt></ruby>…</span><small class="ebs">11/28（土）かいきん！</small></button></div>
     <form class="enq" id="enqForm" onsubmit="return false">
       <div class="q"><div class="qt"><b>1</b><span><ruby>楽<rt>たの</rt></ruby>しかったものは どれ？</span><small>いくつでも<ruby>選<rt>えら</rt></ruby>べるよ</small></div>
         <div class="opts multi" data-k="fun"><button type="button" data-v="キーホルダーづくり"><span>🔑 キーホルダーづくり</span></button><button type="button" data-v="アイシングクッキー"><span>🍪 アイシングクッキー</span></button><button type="button" data-v="ガチャガチャ"><span>🎰 ガチャガチャ</span></button><button type="button" data-v="あそび場"><span>🛝 あそび<ruby>場<rt>ば</rt></ruby></span></button><button type="button" data-v="マルシェ"><span>🌮 マルシェ</span></button><button type="button" data-v="ゲーム"><span>🎮 ゲーム</span></button><button type="button" data-v="工場見学"><span>🏭 <ruby>工場見学<rt>こうじょうけんがく</rt></ruby></span></button></div></div>
@@ -484,13 +520,18 @@ footer{background:#1b1d21;color:#aaa;text-align:center;font-size:12px;padding:22
         <div class="opts faces" data-k="star"><button type="button" data-v="5">😆<span><ruby>最高<rt>さいこう</rt></ruby>！</span></button><button type="button" data-v="4">😊<span><ruby>楽<rt>たの</rt></ruby>しい</span></button><button type="button" data-v="3">🙂<span>ふつう</span></button><button type="button" data-v="2">😐<span>いまいち</span></button></div></div>
       <div class="q"><div class="qt"><b>4</b><span>また <ruby>来<rt>き</rt></ruby>たい？</span></div>
         <div class="opts" data-k="again"><button type="button" data-v="ぜったい くる！"><span>ぜったい <ruby>来<rt>く</rt></ruby>る！</span></button><button type="button" data-v="たぶん"><span>たぶん</span></button><button type="button" data-v="わからない"><span>わからない</span></button></div></div>
-      <div class="q parent"><div class="qt"><b>5</b><span><ruby>何<rt>なに</rt></ruby>で <ruby>知<rt>し</rt></ruby>りましたか？</span><small>いくつでも</small></div>
+      <div class="q"><div class="qt"><b>5</b><span><ruby>次<rt>つぎ</rt></ruby>に やってみたいことは？</span><small>いくつでも<ruby>選<rt>えら</rt></ruby>べるよ</small></div>
+        <div class="opts multi" data-k="next"><button type="button" data-v="ゲームづくり"><span>🎮 ゲームづくり</span></button><button type="button" data-v="ものづくり"><span>🔧 ものづくり・こうさく</span></button><button type="button" data-v="工場見学"><span>🏭 <ruby>工場見学<rt>こうじょうけんがく</rt></ruby></span></button><button type="button" data-v="あそび場"><span>🛝 あそび<ruby>場<rt>ば</rt></ruby></span></button><button type="button" data-v="マルシェ"><span>🌮 マルシェ</span></button><button type="button" data-v="その他"><span>✏️ その<ruby>他<rt>た</rt></ruby></span></button></div>
+        <input type="text" id="nextOther" class="oth" maxlength="60" placeholder="やってみたいことを かいてね" hidden></div>
+      <div class="q"><div class="qt"><b>6</b><span>だれと <ruby>来<rt>き</rt></ruby>たの？</span><small>いくつでも<ruby>選<rt>えら</rt></ruby>べるよ</small></div>
+        <div class="opts multi" data-k="who"><button type="button" data-v="家族"><span>👨‍👩‍👧 <ruby>家族<rt>かぞく</rt></ruby></span></button><button type="button" data-v="ともだち"><span>🧒 ともだち</span></button><button type="button" data-v="学校・習い事"><span>🏫 <ruby>学校<rt>がっこう</rt></ruby>・<ruby>習<rt>なら</rt></ruby>い<ruby>事<rt>ごと</rt></ruby></span></button><button type="button" data-v="ひとり"><span>🚶 ひとり</span></button></div></div>
+      <div class="q parent"><div class="qt"><b>7</b><span><ruby>何<rt>なに</rt></ruby>で <ruby>知<rt>し</rt></ruby>りましたか？</span><small>いくつでも</small></div>
         <div class="opts multi" data-k="know"><button type="button" data-v="チラシ"><span>チラシ</span></button><button type="button" data-v="学校"><span><ruby>学校<rt>がっこう</rt></ruby></span></button><button type="button" data-v="Instagram"><span>Instagram</span></button><button type="button" data-v="YouTube"><span>YouTube</span></button><button type="button" data-v="ホームページ"><span>ホームページ</span></button><button type="button" data-v="知人・友人"><span><ruby>知人<rt>ちじん</rt></ruby>・<ruby>友人<rt>ゆうじん</rt></ruby></span></button><button type="button" data-v="通りがかり"><span><ruby>通<rt>とお</rt></ruby>りがかり</span></button><button type="button" data-v="その他"><span>その<ruby>他<rt>た</rt></ruby></span></button></div></div>
-      <div class="q"><div class="qt"><b>6</b><span>あなたの <ruby>年齢<rt>ねんれい</rt></ruby>は？</span></div>
+      <div class="q"><div class="qt"><b>8</b><span>あなたの <ruby>年齢<rt>ねんれい</rt></ruby>は？</span></div>
         <div class="opts" data-k="age"><button type="button" data-v="未就学"><span><ruby>未就学<rt>みしゅうがく</rt></ruby></span></button><button type="button" data-v="小学1〜3年"><span><ruby>小学<rt>しょうがく</rt></ruby>1〜3<ruby>年<rt>ねん</rt></ruby></span></button><button type="button" data-v="小学4〜6年"><span><ruby>小学<rt>しょうがく</rt></ruby>4〜6<ruby>年<rt>ねん</rt></ruby></span></button><button type="button" data-v="中学生"><span><ruby>中学生<rt>ちゅうがくせい</rt></ruby></span></button><button type="button" data-v="高校生"><span><ruby>高校生<rt>こうこうせい</rt></ruby></span></button><button type="button" data-v="おとな"><span><ruby>大人<rt>おとな</rt></ruby></span></button></div></div>
-      <div class="q"><div class="qt"><b>7</b><span><ruby>一言<rt>ひとこと</rt></ruby>どうぞ！</span><small>なくても<ruby>大丈夫<rt>だいじょうぶ</rt></ruby></small></div>
+      <div class="q"><div class="qt"><b>9</b><span><ruby>一言<rt>ひとこと</rt></ruby>どうぞ！</span><small>なくても<ruby>大丈夫<rt>だいじょうぶ</rt></ruby></small></div>
         <textarea id="enqText" maxlength="300" placeholder="たのしかったこと、つぎに やってほしいこと など"></textarea></div>
-      <p class="enqnote">※<ruby>名前<rt>なまえ</rt></ruby>や<ruby>連絡先<rt>れんらくさき</rt></ruby>はいりません。<ruby>答<rt>こた</rt></ruby>えは<ruby>東洋工作所<rt>とうようこうさくしょ</rt></ruby>のイベントづくりの<ruby>参考<rt>さんこう</rt></ruby>にさせていただきます。</p>
+      <p class="enqnote">※<ruby>名前<rt>なまえ</rt></ruby>や<ruby>連絡先<rt>れんらくさき</rt></ruby>は<ruby>書<rt>か</rt></ruby>かなくて<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>です。<br>みんなの<ruby>答<rt>こた</rt></ruby>えは、<ruby>東洋工作所<rt>とうようこうさくしょ</rt></ruby>のイベントづくりに<ruby>役立<rt>やくだ</rt></ruby>てます。</p>
       <div style="text-align:center"><button type="button" class="btn" id="enqSend">📮 <ruby>送<rt>おく</rt></ruby>る！</button></div>
       <div class="enqmsg" id="enqMsg"></div>
     </form>
@@ -782,16 +823,57 @@ function tick(){ cx.clearRect(0,0,cf.width,cf.height);
 
 
 
+
+/* アンケート：11/28 0:00（日本時間）まで こおりづけ。確認用（社内だけ）：URLの最後に ?enq=toyo1128 */
+(function(){
+  const OPEN=Date.parse('2026-11-28T00:00:00+09:00'),btns=[...document.querySelectorAll('.enqbtn')];if(!btns.length)return;
+  const hero=document.getElementById('enqHero');
+  const test=/[?&]enq=toyo1128/.test(location.search),open=test||Date.now()>=OPEN;
+  function flakes(x,y,n){for(let i=0;i<n;i++){const f=document.createElement('span');f.className='enqflake';f.textContent=Math.random()<.5?'❄':'✦';
+    f.style.left=x+'px';f.style.top=y+'px';f.style.fontSize=(12+Math.random()*16)+'px';f.style.setProperty('--dx',(Math.random()-.5)*240+'px');f.style.setProperty('--dy',(Math.random()-.3)*200+'px');
+    document.body.appendChild(f);setTimeout(()=>f.remove(),1500)}}
+  if(!open){
+    const d=Math.ceil((OPEN-Date.now())/86400000),sub=d<=1?'あした かいきん！':'11/28（土）かいきん！ あと '+d+' 日';
+    const msgs=['まだ カチコチ！','11/28 まで まってね！','こおりが かたい…！','当日 工場で あおう！'];
+    btns.forEach(b=>{b.classList.add('ice');b.querySelector('.ebs').textContent=sub;
+      b.addEventListener('click',e=>{e.preventDefault();b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');const r=b.getBoundingClientRect();flakes(r.left+r.width/2,r.top+r.height/2,14);
+        const m=document.createElement('div');m.className='enqpop';m.textContent=msgs[Math.random()*msgs.length|0];m.style.left=(r.left+r.width/2)+'px';m.style.top=(r.top-46)+'px';document.body.appendChild(m);setTimeout(()=>m.remove(),1600)})});
+    setInterval(()=>btns.forEach(b=>{const r=b.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight&&r.width)flakes(r.left+Math.random()*r.width,r.top+Math.random()*r.height,1)}),900);
+    return;
+  }
+  /* 28日から：アンケートの項目は最初から表示。上のボタンは「答える」に変身 */
+  document.body.classList.add('enq-show');
+  let done=false;try{done=localStorage.getItem('toyo_enq_done')==='1'}catch(e){}
+  function setOpen(){hero.classList.remove('ice');hero.classList.add('open');hero.querySelector('.ebm').innerHTML=done?'🎨 じぶんキャラを <ruby>描<rt>か</rt></ruby>く':'📮 アンケートに <ruby>答<rt>こた</rt></ruby>える！';hero.querySelector('.ebs').textContent=done?'こたえてくれて ありがとう！':'1ぷんで おわるよ'}
+  let seen=false;try{seen=localStorage.getItem('toyo_enq_open')==='1'}catch(e){}
+  if(seen&&!test){setOpen();return}
+  hero.classList.add('ice');
+  setTimeout(()=>{try{localStorage.setItem('toyo_enq_open','1')}catch(e){}
+    const r=hero.getBoundingClientRect();
+    for(let i=0;i<26;i++){const s=document.createElement('div');s.className='enqshard';const w=10+Math.random()*26,h=8+Math.random()*20;
+      s.style.width=w+'px';s.style.height=h+'px';s.style.left=(r.left+Math.random()*r.width)+'px';s.style.top=(r.top+Math.random()*r.height)+'px';
+      s.style.clipPath='polygon('+Math.random()*40+'% 0,100% '+Math.random()*50+'%,'+(50+Math.random()*50)+'% 100%,0 '+(50+Math.random()*50)+'%)';document.body.appendChild(s);
+      const dx=(Math.random()-.5)*420,dy=-120-Math.random()*200;
+      s.animate([{transform:'translate(0,0)',opacity:1},{transform:'translate('+dx+'px,'+dy+'px) rotate('+(Math.random()-.5)*720+'deg)',opacity:1,offset:.45},{transform:'translate('+dx*1.3+'px,'+(dy+520)+'px) rotate('+(Math.random()-.5)*1080+'deg)',opacity:0}],{duration:1500+Math.random()*500,easing:'cubic-bezier(.2,.7,.4,1)'}).onfinish=()=>s.remove()}
+    flakes(r.left+r.width/2,r.top+r.height/2,30);setOpen();
+    hero.animate([{transform:'scale(.3)'},{transform:'scale(1.2)'},{transform:'scale(1)'}],{duration:600,easing:'cubic-bezier(.3,1.6,.6,1)'});
+    if(typeof burst==='function')burst(120)},1000);
+})();
+
+
+/* QRなどで #enquete 付きで来たら、読み込み後にもう一度アンケートへ移動 */
+(function(){if(!location.hash)return;const go=()=>{const el=document.querySelector(location.hash);if(el)el.scrollIntoView({block:'start'})};addEventListener('load',()=>{go();setTimeout(go,400)})})();
 /* アンケート（Firebase /survey に保存） */
 (function(){
   const DB='https://toyo-game-default-rtdb.asia-southeast1.firebasedatabase.app', f=document.getElementById('enqForm'); if(!f) return;
   let done=false;try{done=localStorage.getItem('toyo_enq_done')==='1'}catch(e){}
   if(done){f.style.display='none';document.getElementById('enqDone').style.display='block'}
   f.querySelectorAll('.opts').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
-    if(g.classList.contains('multi'))b.classList.toggle('on');else{g.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on')}}));
+    if(g.classList.contains('multi'))b.classList.toggle('on');else{g.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on')}
+    if(g.dataset.k==='next'){const o=g.querySelector('button[data-v="その他"]').classList.contains('on'),i=document.getElementById('nextOther');i.hidden=!o;if(o&&b.dataset.v==='その他')i.focus()}}));
   const val=g=>{const on=[...g.querySelectorAll('button.on')];const v=on.map(b=>b.dataset.v||b.textContent.replace(/^[^\wぁ-んァ-ヶ一-龠A-Za-z]+/,'').trim());return g.classList.contains('multi')?v:(v[0]||'')};
   document.getElementById('enqSend').addEventListener('click',async()=>{
-    const d={t:Date.now()};f.querySelectorAll('.opts').forEach(g=>{d[g.dataset.k]=val(g)});d.text=document.getElementById('enqText').value.trim().slice(0,300);
+    const d={t:Date.now()};f.querySelectorAll('.opts').forEach(g=>{d[g.dataset.k]=val(g)});d.text=document.getElementById('enqText').value.trim().slice(0,300);if((d.next||[]).includes('その他')){const o=document.getElementById('nextOther').value.trim().slice(0,60);if(o)d.nextOther=o}
     const msg=document.getElementById('enqMsg');
     if(!d.star){msg.innerHTML='3の「'+'<ruby>今日<rt>きょう</rt></ruby>は どうだった？」を'+'<ruby>選<rt>えら</rt></ruby>んでね！';return}
     const btn=document.getElementById('enqSend');btn.disabled=true;msg.style.color='#555';msg.innerHTML='<ruby>送<rt>おく</rt></ruby>っています…';
